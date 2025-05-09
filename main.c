@@ -1,46 +1,80 @@
-
-#include "funciones.h"
 #include <stdio.h>
 #include <string.h>
+#include "productos.h"
 
 int main() {
-    char productos[10][50];
+    char productos[10][30];
+    char nombre[30];
     float precios[10];
-    int cantidad;
-    float productosCaros[10];
-    float max=0;
-    float min=1000;
+    int opc, cantidad, ingresov = 0;
 
-    
     do {
         printf("¿Cuántos productos quieres ingresar? (1 a 10): ");
         int validacion = scanf("%d", &cantidad);
         if (validacion != 1 || cantidad < 1 || cantidad > 10) {
             printf("Error: Solo puedes ingresar un número entero entre 1 y 10. Intenta de nuevo.\n");
-            while (getchar() != '\n'); 
+            while (getchar() != '\n');
         }
     } while (cantidad < 1 || cantidad > 10);
 
-    ingresarProductos(productos, precios, cantidad);
+    do {
+        opc = menu();
 
-    float total = calcularPrecioTotal(precios, cantidad);
-    printf("Precio total del inventario: %.2f\n", total);
+        switch (opc) {
+            case 1:
+                Ingreso(productos, precios, cantidad);
+                ingresov = 1;
+                break;
 
-    encontrarProductoMasCaro(precios,productos,cantidad);
-    encontrarProductoMasBarato(precios,productos,cantidad);
+            case 2:
+                if (ingresov) {
+                    printf("Total del inventario: %.2f\n", InventarioPT(precios, cantidad));
+                } else {
+                    printf("Primero ingrese los productos.\n");
+                }
+                break;
 
-    float promedio = calcularPrecioPromedio(precios, cantidad);
-    printf("El precio promedio es: %.2f\n", promedio);
+            case 3:
+                if (ingresov) {
+                    printf("Precio promedio: %.2f\n", PPromedio(precios, cantidad));
+                } else {
+                    printf("Primero ingrese los productos.\n");
+                }
+                break;
 
-    char nombreProducto[50];
-    printf("Ingrese el nombre del producto a buscar: ");
-    getchar(); 
-    fgets(nombreProducto, 50, stdin);
-    nombreProducto[strcspn(nombreProducto, "\n")] = '\0'; 
-    buscarProducto(productos, precios, cantidad, nombreProducto);
+            case 4:
+                if (ingresov) {
+                    ProductoCaro(precios, productos, cantidad);
+                } else {
+                    printf("Primero ingrese los productos.\n");
+                }
+                break;
 
-    printf("Presione Enter para salir...\n");
-    getchar();  
-  
+            case 5:
+                if (ingresov) {
+                    ProductoBarato(precios, productos, cantidad);
+                } else {
+                    printf("Primero ingrese los productos.\n");
+                }
+                break;
+
+            case 6:
+                if (ingresov) {
+                    Mostrar(productos, precios, cantidad, nombre);
+                } else {
+                    printf("Primero ingrese los productos.\n");
+                }
+                break;
+
+            case 7:
+                printf("Saliendo del programa...\n");
+                return 0;
+
+            default:
+                printf("Opción no válida. Intente otra vez.\n");
+        }
+
+    } while (opc != 7);
+
     return 0;
 }
