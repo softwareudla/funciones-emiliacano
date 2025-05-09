@@ -4,15 +4,16 @@
 
 int main() {
     char productos[10][30];
-    char nombre[30];
     float precios[10];
-    int opc, cantidad, ingresov = 0;
+    char nombre[30];
+    int cantidad, opc;
+    int ingresado = 0;
 
     do {
         printf("¿Cuántos productos quieres ingresar? (1 a 10): ");
-        int validacion = scanf("%d", &cantidad);
-        if (validacion != 1 || cantidad < 1 || cantidad > 10) {
-            printf("Error: Solo puedes ingresar un número entero entre 1 y 10. Intenta de nuevo.\n");
+        int val = scanf("%d", &cantidad);
+        if (val != 1 || cantidad < 1 || cantidad > 10) {
+            printf("Error: Ingresa un número entre 1 y 10.\n");
             while (getchar() != '\n');
         }
     } while (cantidad < 1 || cantidad > 10);
@@ -23,55 +24,43 @@ int main() {
         switch (opc) {
             case 1:
                 Ingreso(productos, precios, cantidad);
-                ingresov = 1;
+                ingresado = 1;
                 break;
-
             case 2:
-                if (ingresov) {
+                if (ingresado)
                     printf("Total del inventario: %.2f\n", InventarioPT(precios, cantidad));
-                } else {
-                    printf("Primero ingrese los productos.\n");
-                }
+                else
+                    printf("Primero debes ingresar productos.\n");
                 break;
-
             case 3:
-                if (ingresov) {
+                if (ingresado)
                     printf("Precio promedio: %.2f\n", PPromedio(precios, cantidad));
-                } else {
-                    printf("Primero ingrese los productos.\n");
-                }
+                else
+                    printf("Primero debes ingresar productos.\n");
                 break;
-
             case 4:
-                if (ingresov) {
+                if (ingresado)
                     ProductoCaro(precios, productos, cantidad);
-                } else {
-                    printf("Primero ingrese los productos.\n");
-                }
+                else
+                    printf("Primero debes ingresar productos.\n");
                 break;
-
             case 5:
-                if (ingresov) {
+                if (ingresado)
                     ProductoBarato(precios, productos, cantidad);
-                } else {
-                    printf("Primero ingrese los productos.\n");
-                }
+                else
+                    printf("Primero debes ingresar productos.\n");
                 break;
-
             case 6:
-                if (ingresov) {
+                if (ingresado)
                     Mostrar(productos, precios, cantidad, nombre);
-                } else {
-                    printf("Primero ingrese los productos.\n");
-                }
+                else
+                    printf("Primero debes ingresar productos.\n");
                 break;
-
             case 7:
                 printf("Saliendo del programa...\n");
-                return 0;
-
+                break;
             default:
-                printf("Opción no válida. Intente otra vez.\n");
+                printf("Opción no válida.\n");
         }
 
     } while (opc != 7);
