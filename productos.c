@@ -20,7 +20,7 @@ void Ingreso(char productos[10][30], float precios[10], int cantidad) {
     for (int i = 0; i < cantidad; i++) {
         int valido = 0;
 
-        // Validar nombre
+       
         do {
             int tieneNumero = 0;
             int soloEspacios = 1;
@@ -29,7 +29,7 @@ void Ingreso(char productos[10][30], float precios[10], int cantidad) {
             fflush(stdin);
             fgets(productos[i], 30, stdin);
 
-            // Quitar salto de línea
+        
             int len = 0;
             while (productos[i][len] != '\0') {
                 if (productos[i][len] == '\n') {
@@ -39,7 +39,7 @@ void Ingreso(char productos[10][30], float precios[10], int cantidad) {
                 len++;
             }
 
-            // Verificar si hay números o solo espacios
+          
             for (int j = 0; productos[i][j] != '\0'; j++) {
                 if (productos[i][j] >= '0' && productos[i][j] <= '9') {
                     tieneNumero = 1;
@@ -56,7 +56,7 @@ void Ingreso(char productos[10][30], float precios[10], int cantidad) {
             }
         } while (!valido);
 
-        // Validar precio
+ 
         int validacion;
         do {
             printf("Ingrese el precio del producto %d: ", i + 1);
